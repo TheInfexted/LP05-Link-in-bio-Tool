@@ -210,6 +210,40 @@ class DashboardController extends BaseController
         return redirect()->to('/admin/links')->with('success', 'Link deleted successfully!');
     }
     
+    public function updateAppLinks()
+    {
+        $authCheck = $this->checkAuth();
+        if ($authCheck) return $authCheck;
+        
+        $userId = $this->session->get('user_id');
+        $page = $this->pageModel->getPageByUserId($userId);
+        
+        $data = [
+            'ios_app_url' => $this->request->getPost('ios_app_url'),
+            'android_app_url' => $this->request->getPost('android_app_url')
+        ];
+        
+        // Handle iOS app image upload
+        $iosAppImage = $this->request->getFile('ios_app_image');
+        if ($iosAppImage && $iosAppImage->isValid()) {
+            $newName = $iosAppImage->getRandomName();
+            $iosAppImage->move(ROOTPATH . 'public/uploads/apps', $newName);
+            $data['ios_app_image'] = 'uploads/apps/' . $newName;
+        }
+        
+        // Handle Android app image upload
+        $androidAppImage = $this->request->getFile('android_app_image');
+        if ($androidAppImage && $androidAppImage->isValid()) {
+            $newName = $androidAppImage->getRandomName();
+            $androidAppImage->move(ROOTPATH . 'public/uploads/apps', $newName);
+            $data['android_app_image'] = 'uploads/apps/' . $newName;
+        }
+        
+        $this->pageModel->update($page['id'], $data);
+        
+        return redirect()->to('/admin/links')->with('success', 'App store links updated successfully!');
+    }
+    
     public function carousel()
     {
         $authCheck = $this->checkAuth();

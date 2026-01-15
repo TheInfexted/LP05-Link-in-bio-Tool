@@ -71,6 +71,69 @@
                 </form>
             </div>
         </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2 class="card-title"><i class="fas fa-mobile-alt"></i> App Store Links</h2>
+            </div>
+            <div class="card-body">
+                <form action="/admin/links/update-apps" method="POST" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
+                    
+                    <div class="form-group">
+                        <label for="ios_app_url" class="form-label">
+                            <i class="fab fa-apple"></i> iOS App Store URL
+                        </label>
+                        <input type="url" class="form-control" id="ios_app_url" name="ios_app_url" 
+                               value="<?= esc($page['ios_app_url'] ?? '') ?>" 
+                               placeholder="https://apps.apple.com/app/your-app">
+                        <small class="text-muted">Leave empty to hide the iOS app button</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ios_app_image" class="form-label">
+                            <i class="fas fa-image"></i> iOS App Button Image
+                        </label>
+                        <?php if (!empty($page['ios_app_image'])): ?>
+                            <div class="mb-3">
+                                <img src="/<?= $page['ios_app_image'] ?>" alt="iOS App Image" style="max-width: 100%; max-height: 100px; border-radius: 10px;">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" class="form-control form-control-file" id="ios_app_image" name="ios_app_image" accept="image/*" data-preview="iosAppPreview">
+                        <img id="iosAppPreview" style="display: none; max-width: 100%; max-height: 100px; margin-top: 10px; border-radius: 10px;">
+                        <small class="text-muted">Optional: Upload a custom image for the iOS app button</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="android_app_url" class="form-label">
+                            <i class="fab fa-google-play"></i> Google Play Store URL
+                        </label>
+                        <input type="url" class="form-control" id="android_app_url" name="android_app_url" 
+                               value="<?= esc($page['android_app_url'] ?? '') ?>" 
+                               placeholder="https://play.google.com/store/apps/details?id=your.app">
+                        <small class="text-muted">Leave empty to hide the Android app button</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="android_app_image" class="form-label">
+                            <i class="fas fa-image"></i> Android App Button Image
+                        </label>
+                        <?php if (!empty($page['android_app_image'])): ?>
+                            <div class="mb-3">
+                                <img src="/<?= $page['android_app_image'] ?>" alt="Android App Image" style="max-width: 100%; max-height: 100px; border-radius: 10px;">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" class="form-control form-control-file" id="android_app_image" name="android_app_image" accept="image/*" data-preview="androidAppPreview">
+                        <img id="androidAppPreview" style="display: none; max-width: 100%; max-height: 100px; margin-top: 10px; border-radius: 10px;">
+                        <small class="text-muted">Optional: Upload a custom image for the Android app button</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save"></i> Save App Links
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

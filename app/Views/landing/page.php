@@ -1,40 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($page['subtitle_1'] ?? 'Landing Page') ?> - LP Universe</title>
-    <meta name="description" content="<?= esc($page['subtitle_2'] ?? '') ?>">
-    
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    
-    <!-- Custom CSS -->
-    <link href="/assets/css/landing.css?v=<?= time() ?>" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Animated Background -->
-    <?php if (!empty($page['background_value']) && $page['background_type'] == 'image'): ?>
-        <div class="landing-background" style="background-image: url('/<?= $page['background_value'] ?>'); background-size: cover; background-position: center; background-attachment: fixed;"></div>
-    <?php else: ?>
-        <div class="landing-background tunnel-bg">
-            <div class="tunnel-stars"></div>
-        </div>
-    <?php endif; ?>
-    
-    <!-- Main Container -->
-    <div class="landing-container">
+<?= $this->extend('layouts/landing') ?>
+
+<?= $this->section('landing_content') ?>
         <!-- Share Buttons -->
         <?php if ($page['share_enabled'] || $page['qr_enabled']): ?>
             <div class="share-buttons">
@@ -99,6 +65,49 @@
                         </a>
                     </div>
                 <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        
+        <!-- App Store Links Section -->
+        <?php if (!empty($page['ios_app_url']) || !empty($page['android_app_url'])): ?>
+            <div class="app-store-section">
+                <?php if (!empty($page['ios_app_url'])): ?>
+                    <div class="app-store-item-wrapper">
+                        <div class="app-logo-container">
+                            <?php if (!empty($page['ios_app_image'])): ?>
+                                <div class="lozad link-image ios" 
+                                     data-background-image="/<?= $page['ios_app_image'] ?>"></div>
+                            <?php else: ?>
+                                <i class="fab fa-apple"></i>
+                            <?php endif; ?>
+                        </div>
+                        <a href="<?= esc($page['ios_app_url']) ?>" 
+                           class="app-store-item ios-app" 
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="app-store-text">My iOS App</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if (!empty($page['android_app_url'])): ?>
+                    <div class="app-store-item-wrapper">
+                        <div class="app-logo-container">
+                            <?php if (!empty($page['android_app_image'])): ?>
+                                <div class="lozad link-image android" 
+                                     data-background-image="/<?= $page['android_app_image'] ?>"></div>
+                            <?php else: ?>
+                                <i class="fab fa-google-play"></i>
+                            <?php endif; ?>
+                        </div>
+                        <a href="<?= esc($page['android_app_url']) ?>" 
+                           class="app-store-item android-app" 
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="app-store-text">My Android App</span>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
         
@@ -346,18 +355,45 @@
             </p>
         </div>
     </div>
-    
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+<?= $this->endSection() ?>
+
+<?= $this->section('landing_scripts') ?>
     <!-- QR Code Generator -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
+    <!-- Lozad (Lazy Loading) -->
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+    
     <!-- Custom JS -->
     <script src="/assets/js/landing.js?v=<?= time() ?>"></script>
+    
+    <!-- Initialize Lozad for background images -->
+    <script>
+        if (typeof lozad !== 'undefined') {
+            const observer = lozad('.lozad', {
+                loaded: function(el) {
+                    el.classList.add('loaded');
+                    // Set background image when loaded
+                    const bgImage = el.getAttribute('data-background-image');
+                    if (bgImage) {
+                        el.style.backgroundImage = 'url(' + bgImage + ')';
+                        el.style.display = 'block';
+                    }
+                }
+            });
+            observer.observe();
+            
+            // Also load images immediately if they're already in viewport
+            document.querySelectorAll('.lozad').forEach(function(el) {
+                const bgImage = el.getAttribute('data-background-image');
+                if (bgImage) {
+                    el.style.backgroundImage = 'url(' + bgImage + ')';
+                    el.style.display = 'block';
+                    el.classList.add('loaded');
+                }
+            });
+        }
+    </script>
     
     <!-- Initialize Swiper -->
     <?php if (!empty($carouselImages)): ?>
@@ -377,6 +413,5 @@
             });
         </script>
     <?php endif; ?>
-</body>
-</html>
+<?= $this->endSection() ?>
 

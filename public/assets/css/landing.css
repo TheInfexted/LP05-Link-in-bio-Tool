@@ -383,6 +383,108 @@ body {
     font-weight: 600;
 }
 
+/* App Store Section */
+.app-store-section {
+    width: 100%;
+    max-width: 600px;
+    margin: -20px 0 10px 0;
+}
+
+.app-store-item-wrapper {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.app-store-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    padding: 18px 24px;
+    background: #2c2c2c;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.app-store-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+    pointer-events: none;
+}
+
+.app-store-item:hover::before {
+    left: 100%;
+}
+
+.app-store-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    background: #333333;
+}
+
+/* White rounded square container for logo - standalone outside link */
+.app-logo-container {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.app-logo-container i {
+    font-size: 28px;
+    color: #2c2c2c;
+}
+
+.app-logo-container .link-image {
+    width: 70px;
+    height: 70px;
+    background-size: 34px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.app-store-item i {
+    font-size: 28px;
+    color: #2c2c2c;
+}
+
+.app-store-item .link-image {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.app-store-text {
+    flex: 1;
+    text-align: left;
+    color: white;
+    font-weight: 600;
+}
+
 /* Social Media Section */
 .social-section {
     width: 100%;
@@ -716,6 +818,26 @@ body {
     
     .link-share-btn i {
         font-size: 16px;
+    }
+    
+    .app-store-item {
+        font-size: 1rem;
+        padding: 15px 20px;
+    }
+    
+    .app-logo-container {
+        width: 45px;
+        height: 45px;
+        margin-right: 12px;
+    }
+    
+    .app-store-item i {
+        font-size: 24px;
+    }
+    
+    .app-store-item .link-image {
+        width: 35px;
+        height: 35px;
     }
 
     .swiper {

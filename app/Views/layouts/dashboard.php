@@ -1,14 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?= $this->extend('layouts/base') ?>
+
+<?= $this->section('meta') ?>
     <title><?= isset($title) ? $title . ' - ' : '' ?>LP Universe CMS</title>
+<?= $this->endSection() ?>
+
+<?= $this->section('styles') ?>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="/assets/css/dashboard.css?v=<?= time() ?>" rel="stylesheet">
-</head>
-<body>
+<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
     <div class="dashboard-wrapper">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -89,9 +91,11 @@
         </div>
     </div>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script src="/assets/js/dashboard.js?v=<?= time() ?>"></script>
-</body>
-</html>
+<?= $this->endSection() ?>
 

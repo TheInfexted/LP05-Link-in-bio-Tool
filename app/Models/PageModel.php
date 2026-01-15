@@ -19,7 +19,11 @@ class PageModel extends Model
         'background_value',
         'share_enabled',
         'qr_enabled',
-        'view_count'
+        'view_count',
+        'ios_app_url',
+        'android_app_url',
+        'ios_app_image',
+        'android_app_image'
     ];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';

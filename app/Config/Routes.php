@@ -22,6 +22,7 @@ $routes->group('admin', function($routes) {
     $routes->get('links', 'DashboardController::links');
     $routes->post('links/add', 'DashboardController::addLink');
     $routes->post('links/reorder', 'DashboardController::reorderLinks');
+    $routes->post('links/update-apps', 'DashboardController::updateAppLinks');
     $routes->get('links/delete/(:num)', 'DashboardController::deleteLink/$1');
     $routes->get('carousel', 'DashboardController::carousel');
     $routes->post('carousel/add', 'DashboardController::addCarouselImage');
